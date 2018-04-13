@@ -8,7 +8,7 @@ CREATE TABLE Usuario (
 	nombre VARCHAR(50),
 
 	PRIMARY KEY (id),
-	UNIQUE(id)
+	UNIQUE (id)
 
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE Auditoria (
 	Auditoria_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Auditoria_id) REFERENCES Usuario(id)
 
 );
@@ -32,7 +32,7 @@ CREATE TABLE Empleado (
 	Usuario_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id)
 
 );
@@ -43,7 +43,7 @@ CREATE TABLE Mesero (
 	Empleado_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Empleado_id) REFERENCES Empleado(id)
 
 );
@@ -55,7 +55,7 @@ CREATE TABLE Chef (
 	Empleado_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Empleado_id) REFERENCES Empleado(id)
 
 );
@@ -67,7 +67,7 @@ CREATE TABLE Administrativo (
 	Empleado_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Empleado_id) REFERENCES Empleado(id)
 
 );
@@ -78,7 +78,7 @@ CREATE TABLE Jefe (
 	Empleado_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Empleado_id) REFERENCES Empleado(id)
 
 );
@@ -91,14 +91,14 @@ CREATE TABLE Comensal(
 	nombre VARCHAR(50),
 
 	PRIMARY KEY(id),
-	UNIQUE(id)
+	UNIQUE (id)
 );
 
 CREATE TABLE Categoria (
 
 	id INT NOT NULL,
 	nombre VARCHAR(50),
-	descripcion VARCHAR(50)
+	descripcion VARCHAR(50),
 
 	PRIMARY KEY (id),
 	UNIQUE (id)
@@ -131,7 +131,7 @@ CREATE TABLE Ingrediente (
 	nombre VARCHAR(50),
 
 	PRIMARY KEY(id),
-	UNIQUE(id)
+	UNIQUE (id)
 );
 
 CREATE TABLE Receta(
@@ -139,7 +139,7 @@ CREATE TABLE Receta(
 	nombre VARCHAR(50),
 
 	PRIMARY KEY(id),
-	UNIQUE(id)
+	UNIQUE (id)
 );
 
 
@@ -149,7 +149,7 @@ CREATE TABLE relRecetaIngrediente(
 	Receta_id INT NOT NUll,
 
 	PRIMARY KEY(id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Ingrediente_id) REFERENCES Ingrediente(id),
 	FOREIGN KEY (Receta_id) REFERENCES Receta(id)
 );
@@ -157,10 +157,10 @@ CREATE TABLE relRecetaIngrediente(
 
 CREATE TABLE Mesa(
 	id INT NOT NULL AUTO_INCREMENT,
-	Mesa_id INT NOT NULL,
+	Mesero_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
 
 );
@@ -170,7 +170,7 @@ CREATE TABLE Pedido(
 	Mesa_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Mesa_id) REFERENCES Mesa(id)
 
 ); 
@@ -180,7 +180,7 @@ CREATE TABLE Factura(
 	Pedido_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Pedido_id) REFERENCES Pedido(id)
 
 ); 
@@ -193,7 +193,7 @@ CREATE TABLE Premio(
 	Plato_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Plato_id) REFERENCES Plato(id)
 
 ); 
@@ -207,7 +207,7 @@ CREATE TABLE Mensajero(
 	cedula VARCHAR(50),
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
 
 );
@@ -221,7 +221,7 @@ CREATE TABLE MedioDeTransporte(
 	Mensajero_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
 
 ); 
@@ -232,7 +232,7 @@ CREATE TABLE Domicilio(
 	Mensajero_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE(id),
+	UNIQUE (id),
 	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id),
 	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
 
@@ -252,23 +252,26 @@ CREATE TABLE Proveedor(
 CREATE TABLE Certificacion(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
-	fecha Date
+	fecha Date,
+
+	PRIMARY KEY (id)
 
 );
 
 
 CREATE TABLE relProveedorCertificacion(
 	id INT NOT NULL AUTO_INCREMENT,
-	Proveedor_id INT NOT NUll AUTO_INCREMENT,
-	Cerficicacion_id INT NOT NULL AUTO_INCREMENT,
+	Proveedor_id INT NOT NUll,
+	Cerficicacion_id INT NOT NULL,
 
+	PRIMARY KEY (id),
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
 	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id)
 );
  
 CREATE TABLE Egreso(
 	id INT NOT NULL AUTO_INCREMENT,
-	valor INT(),
+	valor INT,
 	fecha DATE,
 
 	PRIMARY KEY (id)
@@ -277,9 +280,10 @@ CREATE TABLE Egreso(
 
 CREATE TABLE PQRS(
 	id INT NOT NULL AUTO_INCREMENT,
-	Mesero_id INT NOT NUll AUTO_INCREMENT,
-	Plato_id INT NOT NULL AUTO_INCREMENT,
+	Mesero_id INT NOT NUll,
+	Plato_id INT NOT NULL,
 
+	PRIMARY KEY (id),
 	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
 	FOREIGN KEY (Plato_id) REFERENCES Plato(id) 
 );
