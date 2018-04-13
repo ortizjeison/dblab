@@ -9,7 +9,8 @@ CREATE TABLE Plato (
 	calorias INT,
 	urlFotoPlato VARCHAR(100),
 	precioFinalPLato REAL,
-	costoTotalPlato REAL.
+	costoTotalPlato REAL,
+	horaPlato DATE,
 
 	PRIMARY KEY (idPlato),
 	UNIQUE (idPlato) 
@@ -39,7 +40,7 @@ CREATE TABLE Receta(
 
 
 CREATE TABLE Ingrediente (
-	idIngrediente INT NOT Null AUTO_INCREMENT,
+	idIngrediente INT NOT NUll AUTO_INCREMENT,
 	nombreIngrediente VARCHAR(50),
 
 	PRIMARY KEY(idIngrediente),
@@ -49,8 +50,8 @@ CREATE TABLE Ingrediente (
 
 CREATE TABLE relRecetaIngrediente(
 	idRelRecetaIngrediente INT NOT NULL AUTO_INCREMENT,
-	idIngrediente INT NOT Null,
-	idReceta INT NOT Null,
+	idIngrediente INT NOT NUll,
+	idReceta INT NOT NUll,
 
 	PRIMARY KEY(idRelRecetaIngrediente),
 	UNIQUE(idRelRecetaIngrediente),
@@ -59,13 +60,33 @@ CREATE TABLE relRecetaIngrediente(
 );
 
 CREATE TABLE Comensal(
-	idComensal INT NOT Null AUTO_INCREMENT,
+	idComensal INT NOT NUll AUTO_INCREMENT,
 	nombreComensal VARCHAR(50),
-
 
 );
 
 
-CREATE TABLE Domicilio(
+##Ahora que ya existe la tabla comensal, agregar la FK a la tabla plato:
 
+ALTER TABLE Plato ADD FOREIGN KEY (idComensal) REFERENCES comensal(idComensal);
+
+
+CREATE TABLE Domicilio(
+	idDomicilio INT NOT NULL AUTO_INCREMENT,
+	idComensal Int NOT NULL,
+
+	PRIMARY KEY (idDomicilio),
+	UNIQUE(idDomicilio),
+	FOREIGN KEY(idComensal) REFERENCES Comensal(idComensal),
+
+);
+
+CREATE TABLE Mesa(
+	idMesa INT NOT NULL AUTO_INCREMENT,
+
+);
+
+
+CREATE TABLE Pedido(
+	idPedido
 );
