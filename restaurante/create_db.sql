@@ -175,6 +175,16 @@ CREATE TABLE Pedido(
 
 ); 
 
+CREATE TABLE Factura(
+	id INT NOT NULL AUTO_INCREMENT,
+	Pedido_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE(id),
+	FOREIGN KEY (Pedido_id) REFERENCES Pedido(id)
+
+); 
+
 
 CREATE TABLE Premio(
 	id INT NOT NULL AUTO_INCREMENT,
@@ -190,13 +200,16 @@ CREATE TABLE Premio(
 
 CREATE TABLE Mensajero(
 	id INT NOT NULL AUTO_INCREMENT,
+	Mensajero_id INT NOT NULL,
 	nombre VARCHAR(50),
 	pase VARCHAR(50),
 	tipo VARCHAR(50),
 	cedula VARCHAR(50),
 
 	PRIMARY KEY (id),
-	UNIQUE(id)
+	UNIQUE(id),
+	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
+
 );
 
 
@@ -220,7 +233,7 @@ CREATE TABLE Domicilio(
 
 	PRIMARY KEY (id),
 	UNIQUE(id),
-	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id)
+	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id),
 	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
 
 );
@@ -232,14 +245,14 @@ CREATE TABLE Proveedor(
 	icontec boolean,
 	manipulacion boolean,
 
-	PRIMARY KEY (id);
+	PRIMARY KEY (id)
 );
 
 
 CREATE TABLE Certificacion(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
-	fecha Date,
+	fecha Date
 
 );
 
@@ -250,7 +263,7 @@ CREATE TABLE relProveedorCertificacion(
 	Cerficicacion_id INT NOT NULL AUTO_INCREMENT,
 
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
-	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id), 
+	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id)
 );
  
 CREATE TABLE Egreso(
@@ -258,7 +271,15 @@ CREATE TABLE Egreso(
 	valor INT(),
 	fecha DATE,
 
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 	
 );
 
+CREATE TABLE PQRS(
+	id INT NOT NULL AUTO_INCREMENT,
+	Mesero_id INT NOT NUll AUTO_INCREMENT,
+	Plato_id INT NOT NULL AUTO_INCREMENT,
+
+	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
+	FOREIGN KEY (Plato_id) REFERENCES Plato(id) 
+);
