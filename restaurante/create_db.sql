@@ -233,6 +233,7 @@ CREATE TABLE Proveedor(
 	manipulacion boolean,
 
 	PRIMARY KEY (id);
+	UNIQUE (id);
 );
 
 
@@ -241,6 +242,8 @@ CREATE TABLE Certificacion(
 	nombre VARCHAR(50),
 	fecha Date,
 
+	PRIMARY KEY (id),
+	UNIQUE (id),
 );
 
 
@@ -249,16 +252,20 @@ CREATE TABLE relProveedorCertificacion(
 	Proveedor_id INT NOT NUll AUTO_INCREMENT,
 	Cerficicacion_id INT NOT NULL AUTO_INCREMENT,
 
+	PRIMARY KEY (id),
+	UNIQUE(id),
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
 	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id), 
 );
  
-CREATE TABLE Egreso(
+CREATE TABLE EgresoPago(
 	id INT NOT NULL AUTO_INCREMENT,
-	valor INT(),
+	valor INT,
 	fecha DATE,
+	Proveedor_id INT NOT NUll,
 
 	PRIMARY KEY (id),
-	
+	UNIQUE(id),
+	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
 );
 
