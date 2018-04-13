@@ -245,7 +245,8 @@ CREATE TABLE Proveedor(
 	icontec boolean,
 	manipulacion boolean,
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (id),
+	UNIQUE (id)
 );
 
 
@@ -254,28 +255,32 @@ CREATE TABLE Certificacion(
 	nombre VARCHAR(50),
 	fecha Date,
 
-	PRIMARY KEY (id)
-
+	PRIMARY KEY (id),
+	UNIQUE (id)
 );
 
 
 CREATE TABLE relProveedorCertificacion(
 	id INT NOT NULL AUTO_INCREMENT,
-	Proveedor_id INT NOT NUll,
-	Cerficicacion_id INT NOT NULL,
+	Proveedor_id INT NOT NULL,
+	Certificacion_id INT NOT NULL,
 
 	PRIMARY KEY (id),
+	UNIQUE(id),
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
-	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id)
+	FOREIGN KEY (Certificacion_id) REFERENCES Certificacion(id)
 );
  
-CREATE TABLE Egreso(
+CREATE TABLE EgresoPago(
 	id INT NOT NULL AUTO_INCREMENT,
 	valor INT,
 	fecha DATE,
+	Proveedor_id INT NOT NULL,
 
-	PRIMARY KEY (id)
-	
+
+	PRIMARY KEY (id),
+	UNIQUE(id),
+	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
 );
 
 CREATE TABLE PQRS(
@@ -284,6 +289,7 @@ CREATE TABLE PQRS(
 	Plato_id INT NOT NULL,
 
 	PRIMARY KEY (id),
+	UNIQUE(id),
 	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
 	FOREIGN KEY (Plato_id) REFERENCES Plato(id) 
 );
