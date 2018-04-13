@@ -1,92 +1,101 @@
 USE database;
 
+CREATE TABLE Comensal(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+
+
+	PRIMARY KEY(id),
+	UNIQUE(id)
+);
+
 CREATE TABLE Plato (
 
-	idPlato INT NOT NULL,
-	nombrePlato VARCHAR(50),
-	descripcionPlato VARCHAR(50),
-	nivelDeDificultadPlato INT,
+	id INT NOT NULL,
+	Comensal_id INT NOT NULL,
+	nombre VARCHAR(50),
+	descripcion VARCHAR(50),
+	dificultad INT,
 	calorias INT,
-	urlFotoPlato VARCHAR(100),
-	precioFinalPLato REAL,
-	costoTotalPlato REAL,
-	horaPlato DATE,
+	foto VARCHAR(100),
+	precio REAL,
+	costo REAL,
+	fecha DATE,
 
-	PRIMARY KEY (idPlato),
-	UNIQUE (idPlato) 
+	PRIMARY KEY (id),
+	UNIQUE (id),
+
+	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id)
 
 );
 
 
 CREATE TABLE Categoria (
 
-	idCategoria INT NOT NULL,
-	nombreCategoria VARCHAR(50),
-	descripcionCategoria VARCHAR(50)
+	id INT NOT NULL,
+	nombre VARCHAR(50),
+	descripcion VARCHAR(50)
 
-	PRIMARY KEY (idCategoria),
-	UNIQUE (idCategoria)
+	PRIMARY KEY (id),
+	UNIQUE (id)
 
 );
 
 CREATE TABLE Receta(
-	idReceta INT NOT NULL AUTO_INCREMENT,
-	nombreReceta VARCHAR(50),
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
 
 
-	PRIMARY KEY(idReceta),
-	UNIQUE(idReceta),
+	PRIMARY KEY(id),
+	UNIQUE(id)
 );
 
 
 CREATE TABLE Ingrediente (
-	idIngrediente INT NOT NUll AUTO_INCREMENT,
-	nombreIngrediente VARCHAR(50),
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
 
-	PRIMARY KEY(idIngrediente),
-	UNIQUE (idIngrediente),
+
+	PRIMARY KEY(id),
+	UNIQUE(id)
 );
 
 
 CREATE TABLE relRecetaIngrediente(
-	idRelRecetaIngrediente INT NOT NULL AUTO_INCREMENT,
-	idIngrediente INT NOT NUll,
-	idReceta INT NOT NUll,
+	id INT NOT NULL AUTO_INCREMENT,
+	Ingrediente_id INT NOT NUll,
+	Receta_id INT NOT NUll,
 
-	PRIMARY KEY(idRelRecetaIngrediente),
-	UNIQUE(idRelRecetaIngrediente),
-	FOREIGN KEY (idIngrediente) REFERENCES Ingrediente(idIngrediente),
-	FOREIGN KEY (idReceta) REFERENCES Receta(idReceta),
+	PRIMARY KEY(id),
+	UNIQUE(id),
+	FOREIGN KEY (Ingrediente_id) REFERENCES Ingrediente(id),
+	FOREIGN KEY (Receta_id) REFERENCES Receta(id)
 );
 
-CREATE TABLE Comensal(
-	idComensal INT NOT NUll AUTO_INCREMENT,
-	nombreComensal VARCHAR(50),
-
-);
-
-
-##Ahora que ya existe la tabla comensal, agregar la FK a la tabla plato:
-
-ALTER TABLE Plato ADD FOREIGN KEY (idComensal) REFERENCES comensal(idComensal);
 
 
 CREATE TABLE Domicilio(
-	idDomicilio INT NOT NULL AUTO_INCREMENT,
-	idComensal Int NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
+	Comensal_id Int NOT NULL,
 
-	PRIMARY KEY (idDomicilio),
-	UNIQUE(idDomicilio),
-	FOREIGN KEY(idComensal) REFERENCES Comensal(idComensal),
+	PRIMARY KEY (id),
+	UNIQUE(id),
+	FOREIGN KEY(Comensal_id) REFERENCES Comensal(id)
 
 );
 
 CREATE TABLE Mesa(
-	idMesa INT NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
+
+	PRIMARY KEY (id),
+	UNIQUE(id)
 
 );
 
 
 CREATE TABLE Pedido(
-	idPedido
+	id INT NOT NULL AUTO_INCREMENT,
+
+	PRIMARY KEY (id),
+	UNIQUE(id)
 );
