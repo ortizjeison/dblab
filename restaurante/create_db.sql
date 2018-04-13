@@ -99,3 +99,54 @@ CREATE TABLE Pedido(
 	PRIMARY KEY (id),
 	UNIQUE(id)
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# .l. 
+CREATE TABLE Proveedor(
+	id INT NOT NULL AUTO_INCREMENT,
+	icontec boolean,
+	manipulacion boolean,
+
+	PRIMARY KEY (id);
+);
+
+
+CREATE TABLE Certificacion(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	fecha Date,
+
+);
+
+
+CREATE TABLE relProveedorCertificacion(
+	id INT NOT NULL AUTO_INCREMENT,
+	Proveedor_id INT NOT NUll AUTO_INCREMENT,
+	Cerficicacion_id INT NOT NULL AUTO_INCREMENT,
+
+	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id),
+	FOREIGN KEY (Cerficicacion_id) REFERENCES Certificacion(id), 
+);
+ 
+CREATE TABLE Egreso(
+	id INT NOT NULL AUTO_INCREMENT,
+	valor INT(),
+	fecha DATE,
+
+	PRIMARY KEY (id),
+	
+);
