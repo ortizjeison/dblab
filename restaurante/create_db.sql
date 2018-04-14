@@ -6,6 +6,8 @@ CREATE TABLE Usuario (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
+	password VARCHAR(50),
+	lastAccess Date,
 
 	PRIMARY KEY (id),
 	UNIQUE (id)
@@ -16,11 +18,16 @@ CREATE TABLE Auditoria (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
-	Auditoria_id INT NOT NULL,
+	Usuario_id INT NOT NULL,
+	operaracion VARCHAR(50),
+	tipoOperacion VARCHAR(50),
+	fechaOperacion Date,
+	interesOperacion boolean,
+
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Auditoria_id) REFERENCES Usuario(id)
+	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id)
 
 );
 
@@ -30,10 +37,13 @@ CREATE TABLE Empleado (
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
 	Usuario_id INT NOT NULL,
+	Sede_id INT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id)
+	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id),
+	FOREIGN KEY (Sede_id) REFERENCES Sede(id)
+
 
 );
 
@@ -134,6 +144,18 @@ CREATE TABLE Ingrediente (
 	UNIQUE (id)
 );
 
+CREATE TABLE relRecetaProveedor(
+	id INT NOT NULL AUTO_INCREMENT,
+	Ingrediente_id INT NOT NUll,
+	Proveedor_id INT NOT NUll,
+
+	PRIMARY KEY(id),
+	UNIQUE (id),
+	FOREIGN KEY (Ingrediente_id) REFERENCES Ingrediente(id),
+	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
+);
+
+
 CREATE TABLE Receta(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -157,20 +179,17 @@ CREATE TABLE relRecetaIngrediente(
 
 CREATE TABLE PlanAlimenticio (
 	id INT NOT NULL AUTO_INCREMENT,
+	fechaInicio Date,
+	fechaFin Date,
+	valorNeto INT,
+	valorDescuento INT,
+
 
 	PRIMARY KEY (id),
 	UNIQUE (id)
 );
 
-CREATE TABLE Servicio(	
-	id INT NOT NULL AUTO_INCREMENT,
-	Servicio_id INT NOT NULL,
 
-	PRIMARY KEY (id),
-	UNIQUE (id),
-	FOREIGN KEY (Servicio_id) REFERENCES Servicio(id)
-
-);
 
 CREATE TABLE Cliente(	
 	id INT NOT NULL AUTO_INCREMENT,
@@ -179,6 +198,31 @@ CREATE TABLE Cliente(
 	PRIMARY KEY (id),
 	UNIQUE (id),
 	FOREIGN KEY (PlanAlimenticio_id) REFERENCES PlanAlimenticio(id)
+
+);
+
+CREATE TABLE Sede (
+	id INT NOT NULL AUTO_INCREMENT,
+	Cliente_id INT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id),
+
+);
+
+CREATE TABLE Servicio(
+	id INT NOT NULL AUTO_INCREMENT,
+	Servicio_id INT NOT NULL,
+	Plato_id INT NOT NULL,
+	Sede_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Servicio_id) REFERENCES Servicio(id),
+	FOREIGN KEY (Plato_id) REFERENCES Plato(id),
+	FOREIGN KEY (Sede_id) REFERENCES Sede(id)
+
 
 );
 
@@ -232,6 +276,16 @@ CREATE TABLE Factura(
 	PRIMARY KEY (id),
 	UNIQUE (id),
 	FOREIGN KEY (Pedido_id) REFERENCES Pedido(id)
+
+); 
+
+CREATE TABLE Recibo(
+	id INT NOT NULL AUTO_INCREMENT,
+	Factura_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Factura_id) REFERENCES Factura(id)
 
 ); 
 
@@ -336,10 +390,19 @@ CREATE TABLE EgresoPago(
 CREATE TABLE PQRS(
 	id INT NOT NULL AUTO_INCREMENT,
 	Mesero_id INT NOT NUll,
-	Plato_id INT NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE(id),
-	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
-	FOREIGN KEY (Plato_id) REFERENCES Plato(id) 
+	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
+);
+
+CREATE TABLE relPlatoPQRS(
+	id INT NOT NULL AUTO_INCREMENT,
+	Plato_id INT NOT NUll,
+	PQRS_id INT NOT NUll,
+
+	PRIMARY KEY(id),
+	UNIQUE (id),
+	FOREIGN KEY (Plato_id) REFERENCES Plato(id),
+	FOREIGN KEY (PQRS_id) REFERENCES PQRS(id)
 );
