@@ -155,13 +155,63 @@ CREATE TABLE relRecetaIngrediente(
 );
 
 
-CREATE TABLE Mesa(
+CREATE TABLE PlanAlimenticio (
 	id INT NOT NULL AUTO_INCREMENT,
-	Mesero_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id)
+);
+
+CREATE TABLE Servicio(	
+	id INT NOT NULL AUTO_INCREMENT,
+	Servicio_id INT NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
+	FOREIGN KEY (Servicio_id) REFERENCES Servicio(id)
+
+);
+
+CREATE TABLE Cliente(	
+	id INT NOT NULL AUTO_INCREMENT,
+	PlanAlimenticio_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (PlanAlimenticio_id) REFERENCES PlanAlimenticio(id)
+
+);
+
+CREATE TABLE Persona(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	Cliente_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+);
+
+
+CREATE TABLE Empresa(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	numeroEmpleados INT,
+	Cliente_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+);
+
+CREATE TABLE Mesa(
+	id INT NOT NULL AUTO_INCREMENT,
+	Mesero_id INT NOT NULL,
+	Cliente_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
 
 );
 
