@@ -249,13 +249,23 @@ CREATE TABLE Empresa(
 
 CREATE TABLE Mesa(
 	id INT NOT NULL AUTO_INCREMENT,
-	Mesero_id INT NOT NULL,
 	Cliente_id INT NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id),
 	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+
+);
+
+CREATE TABLE relMesaMesero(
+	id INT NOT NULL AUTO_INCREMENT,
+	Mesa_id INT NOT NULL,
+	Mesero_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Mesa_id) REFERENCES Mesa(id),
+	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
 
 );
 
