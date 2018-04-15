@@ -279,16 +279,19 @@ CREATE TABLE relMesaMesero(
 CREATE TABLE Pedido(
 	id INT NOT NULL AUTO_INCREMENT,
 	Mesa_id INT NOT NULL,
+	Mesero_id INT NOT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Mesa_id) REFERENCES Mesa(id)
+	FOREIGN KEY (Mesa_id) REFERENCES Mesa(id),
+	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
 
 ); 
 
 CREATE TABLE Factura(
 	id INT NOT NULL AUTO_INCREMENT,
 	Pedido_id INT NOT NULL,
+	valorTotal INT,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
@@ -299,6 +302,7 @@ CREATE TABLE Factura(
 CREATE TABLE Recibo(
 	id INT NOT NULL AUTO_INCREMENT,
 	Factura_id INT NOT NULL,
+	valorAbonado INT,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
