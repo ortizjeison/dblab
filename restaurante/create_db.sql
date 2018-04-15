@@ -7,7 +7,7 @@ CREATE TABLE Usuario (
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
 	password VARCHAR(50),
-	lastAccess Date,
+	ultimoAcceso Date,
 
 	PRIMARY KEY (id),
 	UNIQUE (id)
@@ -38,12 +38,10 @@ CREATE TABLE Empleado (
 	nombre VARCHAR(50),
 	cedula VARCHAR(50),
 	Usuario_id INT NOT NULL,
-	Sede_id INT NULL,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id),
-	FOREIGN KEY (Sede_id) REFERENCES Sede(id)
+	FOREIGN KEY (Usuario_id) REFERENCES Usuario(id)
 
 
 );
@@ -97,15 +95,6 @@ CREATE TABLE Jefe (
 
 #Negrito
 
-CREATE TABLE Comensal(
-	id INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(50),
-	cedula VARCHAR(50),
-
-	PRIMARY KEY(id),
-	UNIQUE (id)
-);
-
 CREATE TABLE Categoria (
 
 	id INT NOT NULL,
@@ -117,11 +106,29 @@ CREATE TABLE Categoria (
 
 );
 
+CREATE TABLE Comensal(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	cedula VARCHAR(50),
+
+	PRIMARY KEY(id),
+	UNIQUE (id)
+);
+
+CREATE TABLE Receta(
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+
+	PRIMARY KEY(id),
+	UNIQUE (id)
+);
+
 CREATE TABLE Plato (
 
 	id INT NOT NULL,
 	Comensal_id INT NOT NULL,
 	Categoria_id INT NOT NULL,
+	Receta_id INT NOT NULL,
 	nombre VARCHAR(50),
 	descripcion VARCHAR(50),
 	dificultad INT,
@@ -134,37 +141,22 @@ CREATE TABLE Plato (
 	PRIMARY KEY (id),
 	UNIQUE (id),
 	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id),
-	FOREIGN KEY (Categoria_id) REFERENCES Categoria(id)
+	FOREIGN KEY (Categoria_id) REFERENCES Categoria(id),
+	FOREIGN KEY (Receta_id) REFERENCES Receta(id)
 
 );
 
 CREATE TABLE Ingrediente (
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
+	cantidad INT,
+	unidadDeMedida VARCHAR(50),
+	cantidadEnAlmacen INT,
 
 	PRIMARY KEY(id),
 	UNIQUE (id)
 );
 
-CREATE TABLE relRecetaProveedor(
-	id INT NOT NULL AUTO_INCREMENT,
-	Ingrediente_id INT NOT NUll,
-	Proveedor_id INT NOT NUll,
-
-	PRIMARY KEY(id),
-	UNIQUE (id),
-	FOREIGN KEY (Ingrediente_id) REFERENCES Ingrediente(id),
-	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
-);
-
-
-CREATE TABLE Receta(
-	id INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(50),
-
-	PRIMARY KEY(id),
-	UNIQUE (id)
-);
 
 
 CREATE TABLE relRecetaIngrediente(
@@ -195,11 +187,9 @@ CREATE TABLE PlanAlimenticio (
 
 CREATE TABLE Cliente(	
 	id INT NOT NULL AUTO_INCREMENT,
-	PlanAlimenticio_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE (id),
-	FOREIGN KEY (PlanAlimenticio_id) REFERENCES PlanAlimenticio(id)
+	UNIQUE (id)
 
 );
 
@@ -209,12 +199,25 @@ CREATE TABLE Sede (
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+
+);
+
+CREATE TABLE EmpleadoEmpresa (
+	id INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(50),
+	cedula VARCHAR(50),
+	Sede_id INT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE (id),
+	FOREIGN KEY (Sede_id) REFERENCES Sede(id)
 
 );
 
 CREATE TABLE Servicio(
 	id INT NOT NULL AUTO_INCREMENT,
+	fecha Date,
 	Servicio_id INT NOT NULL,
 	Plato_id INT NOT NULL,
 	Sede_id INT NOT NULL,
@@ -244,9 +247,11 @@ CREATE TABLE Empresa(
 	nombre VARCHAR(50),
 	numeroEmpleados INT,
 	Cliente_id INT NOT NULL,
+	PlanAlimenticio_id INT,
 
 	PRIMARY KEY (id),
-	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id),
+	FOREIGN KEY (PlanAlimenticio_id) REFERENCES PlanAlimenticio(id)
 );
 
 CREATE TABLE Mesa(
@@ -367,6 +372,17 @@ CREATE TABLE Proveedor(
 	UNIQUE (id)
 );
 
+CREATE TABLE relIngredienteProveedor(
+	id INT NOT NULL AUTO_INCREMENT,
+	Ingrediente_id INT NOT NUll,
+	Proveedor_id INT NOT NUll,
+
+	PRIMARY KEY(id),
+	UNIQUE (id),
+	FOREIGN KEY (Ingrediente_id) REFERENCES Ingrediente(id),
+	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
+);
+
 
 CREATE TABLE Certificacion(
 	id INT NOT NULL AUTO_INCREMENT,
@@ -393,6 +409,7 @@ CREATE TABLE EgresoPago(
 	id INT NOT NULL AUTO_INCREMENT,
 	valor INT,
 	fecha DATE,
+	formaPago VARCHAR(50),
 	Proveedor_id INT NOT NULL,
 
 
@@ -403,7 +420,7 @@ CREATE TABLE EgresoPago(
 
 CREATE TABLE PQRS(
 	id INT NOT NULL AUTO_INCREMENT,
-	Mesero_id INT NOT NUll,
+	Mesero_id INT,
 
 	PRIMARY KEY (id),
 	UNIQUE(id),
