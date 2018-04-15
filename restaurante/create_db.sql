@@ -303,6 +303,7 @@ CREATE TABLE Recibo(
 	id INT NOT NULL AUTO_INCREMENT,
 	Factura_id INT NOT NULL,
 	valorAbonado INT,
+	valorRestante INT,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
