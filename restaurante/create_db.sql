@@ -100,7 +100,7 @@ CREATE TABLE Jefe (
 DROP TABLE IF EXISTS Categoria;
 CREATE TABLE Categoria (
 
-	id INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
 	descripcion VARCHAR(50),
 
@@ -131,7 +131,7 @@ CREATE TABLE Receta(
 DROP TABLE IF EXISTS Plato;
 CREATE TABLE Plato (
 
-	id INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
 	Comensal_id INT NOT NULL,
 	Categoria_id INT NOT NULL,
 	Receta_id INT NOT NULL,
