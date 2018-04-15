@@ -1,4 +1,4 @@
-USE database;
+#USE database;
 
 #Usuarios
 DROP TABLE IF EXISTS Usuario;
