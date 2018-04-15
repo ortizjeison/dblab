@@ -244,7 +244,18 @@ CREATE TABLE Servicio(
 DROP TABLE IF EXISTS Persona;
 CREATE TABLE Persona(
 	id INT NOT NULL AUTO_INCREMENT,
+	ceula VARCHAR(50),
 	nombre VARCHAR(50),
+	Cliente_id INT NOT NULL,
+
+	PRIMARY KEY (id),
+	UNIQUE(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+);
+
+DROP TABLE IF EXISTS ClieteMesa;
+CREATE TABLE ClienteMesa(
+	id INT NOT NULL AUTO_INCREMENT,
 	Cliente_id INT NOT NULL,
 
 	PRIMARY KEY (id),
@@ -268,11 +279,9 @@ CREATE TABLE Empresa(
 DROP TABLE IF EXISTS Mesa;
 CREATE TABLE Mesa(
 	id INT NOT NULL AUTO_INCREMENT,
-	Cliente_id INT NOT NULL,
 
 	PRIMARY KEY (id),
-	UNIQUE (id),
-	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
+	UNIQUE (id)
 
 );
 
@@ -344,10 +353,8 @@ DROP TABLE IF EXISTS Mensajero;
 CREATE TABLE Mensajero(
 	id INT NOT NULL AUTO_INCREMENT,
 	Empleado_id INT NOT NULL,
-	nombre VARCHAR(50),
 	pase VARCHAR(50),
-	tipo VARCHAR(50),
-	cedula VARCHAR(50),
+	tipo VARCHAR(50),	
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
