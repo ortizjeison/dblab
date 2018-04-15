@@ -1,7 +1,7 @@
 USE database;
 
 #Usuarios
-
+DROP TABLE IF EXISTS Usuario;
 CREATE TABLE Usuario (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -14,6 +14,7 @@ CREATE TABLE Usuario (
 
 );
 
+DROP TABLE IF EXISTS Auditoria;
 CREATE TABLE Auditoria (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -31,7 +32,7 @@ CREATE TABLE Auditoria (
 
 );
 
-
+DROP TABLE IF EXISTS Empleado;
 CREATE TABLE Empleado (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -46,6 +47,7 @@ CREATE TABLE Empleado (
 
 );
 
+DROP TABLE IF EXISTS Mesero;
 CREATE TABLE Mesero (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -57,7 +59,7 @@ CREATE TABLE Mesero (
 
 );
 
-
+DROP TABLE IF EXISTS Chef;
 CREATE TABLE Chef (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -69,7 +71,7 @@ CREATE TABLE Chef (
 
 );
 
-
+DROP TABLE IF EXISTS Administrativo;
 CREATE TABLE Administrativo (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -81,6 +83,7 @@ CREATE TABLE Administrativo (
 
 );
 
+DROP TABLE IF EXISTS Jefe;
 CREATE TABLE Jefe (
 
 	id INT NOT NULL AUTO_INCREMENT,
@@ -94,7 +97,7 @@ CREATE TABLE Jefe (
 
 
 #Negrito
-
+DROP TABLE IF EXISTS Categoria;
 CREATE TABLE Categoria (
 
 	id INT NOT NULL,
@@ -106,6 +109,7 @@ CREATE TABLE Categoria (
 
 );
 
+DROP TABLE IF EXISTS Comensal;
 CREATE TABLE Comensal(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -115,6 +119,7 @@ CREATE TABLE Comensal(
 	UNIQUE (id)
 );
 
+DROP TABLE IF EXISTS Receta;
 CREATE TABLE Receta(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -123,6 +128,7 @@ CREATE TABLE Receta(
 	UNIQUE (id)
 );
 
+DROP TABLE IF EXISTS Plato;
 CREATE TABLE Plato (
 
 	id INT NOT NULL,
@@ -146,6 +152,7 @@ CREATE TABLE Plato (
 
 );
 
+DROP TABLE IF EXISTS Ingrediente;
 CREATE TABLE Ingrediente (
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -158,7 +165,7 @@ CREATE TABLE Ingrediente (
 );
 
 
-
+DROP TABLE IF EXISTS relRecetaIngrediente;
 CREATE TABLE relRecetaIngrediente(
 	id INT NOT NULL AUTO_INCREMENT,
 	Ingrediente_id INT NOT NUll,
@@ -170,7 +177,7 @@ CREATE TABLE relRecetaIngrediente(
 	FOREIGN KEY (Receta_id) REFERENCES Receta(id)
 );
 
-
+DROP TABLE IF EXISTS PlanAlimenticio;
 CREATE TABLE PlanAlimenticio (
 	id INT NOT NULL AUTO_INCREMENT,
 	fechaInicio Date,
@@ -184,7 +191,7 @@ CREATE TABLE PlanAlimenticio (
 );
 
 
-
+DROP TABLE IF EXISTS Cliente;
 CREATE TABLE Cliente(	
 	id INT NOT NULL AUTO_INCREMENT,
 
@@ -193,6 +200,7 @@ CREATE TABLE Cliente(
 
 );
 
+DROP TABLE IF EXISTS Sede;
 CREATE TABLE Sede (
 	id INT NOT NULL AUTO_INCREMENT,
 	Cliente_id INT NULL,
@@ -203,6 +211,7 @@ CREATE TABLE Sede (
 
 );
 
+DROP TABLE IF EXISTS EmpleadoEmpresa;
 CREATE TABLE EmpleadoEmpresa (
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -215,6 +224,7 @@ CREATE TABLE EmpleadoEmpresa (
 
 );
 
+DROP TABLE IF EXISTS Servicio;
 CREATE TABLE Servicio(
 	id INT NOT NULL AUTO_INCREMENT,
 	fecha Date,
@@ -231,6 +241,7 @@ CREATE TABLE Servicio(
 
 );
 
+DROP TABLE IF EXISTS Persona;
 CREATE TABLE Persona(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -241,7 +252,7 @@ CREATE TABLE Persona(
 	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
 );
 
-
+DROP TABLE IF EXISTS Empresa;
 CREATE TABLE Empresa(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -254,6 +265,7 @@ CREATE TABLE Empresa(
 	FOREIGN KEY (PlanAlimenticio_id) REFERENCES PlanAlimenticio(id)
 );
 
+DROP TABLE IF EXISTS Mesa;
 CREATE TABLE Mesa(
 	id INT NOT NULL AUTO_INCREMENT,
 	Cliente_id INT NOT NULL,
@@ -264,6 +276,7 @@ CREATE TABLE Mesa(
 
 );
 
+DROP TABLE IF EXISTS relMesaMesero;
 CREATE TABLE relMesaMesero(
 	id INT NOT NULL AUTO_INCREMENT,
 	Mesa_id INT NOT NULL,
@@ -276,6 +289,7 @@ CREATE TABLE relMesaMesero(
 
 );
 
+DROP TABLE IF EXISTS Pedido;
 CREATE TABLE Pedido(
 	id INT NOT NULL AUTO_INCREMENT,
 	Mesa_id INT NOT NULL,
@@ -288,6 +302,7 @@ CREATE TABLE Pedido(
 
 ); 
 
+DROP TABLE IF EXISTS Factura;
 CREATE TABLE Factura(
 	id INT NOT NULL AUTO_INCREMENT,
 	Pedido_id INT NOT NULL,
@@ -299,6 +314,7 @@ CREATE TABLE Factura(
 
 ); 
 
+DROP TABLE IF EXISTS Recibo;
 CREATE TABLE Recibo(
 	id INT NOT NULL AUTO_INCREMENT,
 	Factura_id INT NOT NULL,
@@ -311,7 +327,7 @@ CREATE TABLE Recibo(
 
 ); 
 
-
+DROP TABLE IF EXISTS Premio;
 CREATE TABLE Premio(
 	id INT NOT NULL AUTO_INCREMENT,
 	ciudad VARCHAR(50),
@@ -324,6 +340,7 @@ CREATE TABLE Premio(
 
 ); 
 
+DROP TABLE IF EXISTS Mensajero;
 CREATE TABLE Mensajero(
 	id INT NOT NULL AUTO_INCREMENT,
 	Empleado_id INT NOT NULL,
@@ -338,7 +355,7 @@ CREATE TABLE Mensajero(
 
 );
 
-
+DROP TABLE IF EXISTS MedioDeTransporte;
 CREATE TABLE MedioDeTransporte(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -352,6 +369,7 @@ CREATE TABLE MedioDeTransporte(
 
 ); 
 
+DROP TABLE IF EXISTS Domicilio;
 CREATE TABLE Domicilio(
 	id INT NOT NULL AUTO_INCREMENT,
 	info VARCHAR(50),
@@ -367,7 +385,7 @@ CREATE TABLE Domicilio(
 
 );
 
-
+DROP TABLE IF EXISTS Proveedor;
 CREATE TABLE Proveedor(
 	id INT NOT NULL AUTO_INCREMENT,
 	icontec boolean,
@@ -377,6 +395,7 @@ CREATE TABLE Proveedor(
 	UNIQUE (id)
 );
 
+DROP TABLE IF EXISTS relIngredienteProveedor;
 CREATE TABLE relIngredienteProveedor(
 	id INT NOT NULL AUTO_INCREMENT,
 	Ingrediente_id INT NOT NUll,
@@ -388,7 +407,7 @@ CREATE TABLE relIngredienteProveedor(
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
 );
 
-
+DROP TABLE IF EXISTS Certificacion;
 CREATE TABLE Certificacion(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
@@ -398,7 +417,7 @@ CREATE TABLE Certificacion(
 	UNIQUE (id)
 );
 
-
+DROP TABLE IF EXISTS relProveedorCertificacion;
 CREATE TABLE relProveedorCertificacion(
 	id INT NOT NULL AUTO_INCREMENT,
 	Proveedor_id INT NOT NULL,
@@ -410,6 +429,7 @@ CREATE TABLE relProveedorCertificacion(
 	FOREIGN KEY (Certificacion_id) REFERENCES Certificacion(id)
 );
  
+DROP TABLE IF EXISTS EgresoPago;
 CREATE TABLE EgresoPago(
 	id INT NOT NULL AUTO_INCREMENT,
 	valor INT,
@@ -423,15 +443,17 @@ CREATE TABLE EgresoPago(
 	FOREIGN KEY (Proveedor_id) REFERENCES Proveedor(id)
 );
 
+DROP TABLE IF EXISTS PQRS;
 CREATE TABLE PQRS(
 	id INT NOT NULL AUTO_INCREMENT,
 	Mesero_id INT,
-
+	observacion TEXT,
 	PRIMARY KEY (id),
 	UNIQUE(id),
 	FOREIGN KEY (Mesero_id) REFERENCES Mesero(id)
 );
 
+DROP TABLE IF EXISTS relPlatoPQRS;
 CREATE TABLE relPlatoPQRS(
 	id INT NOT NULL AUTO_INCREMENT,
 	Plato_id INT NOT NUll,
