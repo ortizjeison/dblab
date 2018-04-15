@@ -36,6 +36,7 @@ CREATE TABLE Empleado (
 
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
+	cedula VARCHAR(50),
 	Usuario_id INT NOT NULL,
 	Sede_id INT NULL,
 
@@ -99,6 +100,7 @@ CREATE TABLE Jefe (
 CREATE TABLE Comensal(
 	id INT NOT NULL AUTO_INCREMENT,
 	nombre VARCHAR(50),
+	cedula VARCHAR(50),
 
 	PRIMARY KEY(id),
 	UNIQUE (id)
@@ -304,7 +306,7 @@ CREATE TABLE Premio(
 
 CREATE TABLE Mensajero(
 	id INT NOT NULL AUTO_INCREMENT,
-	Mensajero_id INT NOT NULL,
+	Empleado_id INT NOT NULL,
 	nombre VARCHAR(50),
 	pase VARCHAR(50),
 	tipo VARCHAR(50),
@@ -312,7 +314,7 @@ CREATE TABLE Mensajero(
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
-	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
+	FOREIGN KEY (Empleado_id) REFERENCES Empleado(id)
 
 );
 
@@ -332,16 +334,18 @@ CREATE TABLE MedioDeTransporte(
 
 CREATE TABLE Domicilio(
 	id INT NOT NULL AUTO_INCREMENT,
-	Comensal_id Int NOT NULL,
+	info VARCHAR(50),
+	Comensal_id INT,
 	Mensajero_id INT NOT NULL,
+	Cliente_id INT,
 
 	PRIMARY KEY (id),
 	UNIQUE (id),
 	FOREIGN KEY (Comensal_id) REFERENCES Comensal(id),
-	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id)
+	FOREIGN KEY (Mensajero_id) REFERENCES Mensajero(id),
+	FOREIGN KEY (Cliente_id) REFERENCES Cliente(id)
 
 );
-
 
 
 CREATE TABLE Proveedor(
