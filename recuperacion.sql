@@ -1,6 +1,5 @@
 CREATE DATABASE IF NOT EXISTS recuperacion;
 use recuperacion;
-
 CREATE TABLE IF NOT EXISTS caja_fuerte(
 	id char(2) NOT NULL UNIQUE,
 	A INT,
@@ -19,7 +18,7 @@ INSERT INTO caja_fuerte (id,A,B,C,D) VALUES ('R4','14','13','12','11');
 
 
 #_____________________
-#|     A   B   C   D  |
+#|	   A   B   C   D  |
 #|R1   5   6   7   8  |	
 #|R2   16          9  |
 #|R3   15          10 |
@@ -27,11 +26,11 @@ INSERT INTO caja_fuerte (id,A,B,C,D) VALUES ('R4','14','13','12','11');
 #|____________________|
 
 #_____________________
-#|     A   B   C   D  |
-#|R1          	      |	
+#|	   A   B   C   D  |
+#|R1    			  |	
 #|R2       1   2      |
 #|R3       3   4      |
-#|R1   		      |
+#|R1   		          |
 #|____________________|
 
 
@@ -181,6 +180,8 @@ CREATE PROCEDURE girar (dir varchar(3), a char(1), cant int)
 			END IF;
 
 		END IF;
+
+		SET @i = @i + 1;
 
 		END WHILE;
 
