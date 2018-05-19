@@ -188,3 +188,18 @@ CREATE PROCEDURE girar (dir varchar(3), a char(1), cant int)
 	END $$
 
 DELIMITER ;
+
+#Triggers
+
+DELIMITER //
+
+CREATE TRIGGER mover
+AFTER
+INSERT
+ON Movimiento
+FOR EACH ROW 
+BEGIN
+	CALL girar(NEW.direccion,NEW.anillo,NEW.cantidad);
+END //
+
+DELIMITER ;
