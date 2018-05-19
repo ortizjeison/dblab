@@ -191,6 +191,8 @@ DELIMITER ;
 
 #Triggers
 
+#Después de una agragación
+
 DELIMITER //
 
 CREATE TRIGGER mover
@@ -201,5 +203,24 @@ FOR EACH ROW
 BEGIN
 	CALL girar(NEW.direccion,NEW.anillo,NEW.cantidad);
 END //
+
+DELIMITER ;
+
+#Después de una eliminación
+
+DELIMITER $$
+
+CREATE TRIGGER devolver_el_tiempo
+AFTER
+DELETE
+ON Movimiento
+FOR EACH ROW 
+BEGIN
+	IF (OLD.direccion = 'MR') THEN
+		CALL girar('Inv',OLD.anillo,OLD.cantidad);
+	ELSE
+		CALL girar('MR',OLD.anillo,OLD.cantidad);
+	END IF;
+END $$
 
 DELIMITER ;
