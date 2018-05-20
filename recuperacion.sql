@@ -1,5 +1,8 @@
+DROP SCHEMA IF EXISTS recuperacion;
 CREATE DATABASE IF NOT EXISTS recuperacion;
 use recuperacion;
+
+
 CREATE TABLE IF NOT EXISTS caja_fuerte(
 	id char(2) NOT NULL UNIQUE,
 	A INT,
@@ -43,6 +46,8 @@ CREATE TABLE IF NOT EXISTS Movimiento(
 
 
 DELIMITER $
+
+#Girar anillo externo
 CREATE PROCEDURE girarE (dir varchar(3))
 	BEGIN
 
@@ -116,6 +121,7 @@ DELIMITER ;
 
 
 DELIMITER //
+#Girar anillo interno
 CREATE PROCEDURE girarI (dir varchar(3))
 	BEGIN
 		
@@ -224,3 +230,65 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+
+
+DROP EVENT IF EXISTS combinar;
+DELIMITER %
+
+CREATE EVENT combinar
+    ON SCHEDULE EVERY 2.5 MINUTE
+    DO
+		BEGIN
+        
+        #num = cantidad de combinaciones a realizar [1-100]
+        DECLARE num INTEGER;
+		SET num = (FLOOR(RAND() * 100) + 1);
+        
+        DECLARE i INTEGER;
+        SET i = 0;
+        
+        DECLARE dir VARCHAR(3);
+        DECLARE a CHAR(1);
+		DECLARE cant INTEGER;
+        
+        
+        WHILE i < num DO
+        
+			# Dos random: dirección y anillo
+			DECLARE r_an INTEGER;
+			DECLARE r_dir INTEGER;
+			SET n_i = FLOOR(RAND() * 2) + 1;
+			SET dir_i = FLOOR(RAND() * 2) + 1;
+            
+            #FLOOR(RAND() * (<max> - <min> + 1)) + <min>
+            #Random para la cantidad
+			SET cant = FLOOR(RAND() * 100) + 1;
+        
+			#Set anillo:
+			IF(r_an = 1)THEN
+				SET a = 'E';
+			ELSE 
+				SET a = 'I';
+            END IF;
+            
+			#Set direccion:
+			IF(r_dir = 1)THEN
+				SET dir = 'MR';
+			ELSE
+				SET dir = 'Inv';
+            END IF;
+			CALL girar(dir,a,cant);
+            
+            
+            SET i = i + 1;
+		END WHILE;
+	END %
+    
+#dir : 'MR' , 'Inv'
+#a : 'E' , 'I'
+#cant: 1 - n
+#CALL girar(dir, a, cant)
+    
+DELIMITER ;
+    
