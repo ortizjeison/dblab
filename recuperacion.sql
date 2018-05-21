@@ -1,5 +1,4 @@
 
-
 CREATE TABLE IF NOT EXISTS caja_fuerte(
 	id char(2) NOT NULL UNIQUE,
 	A INT,
@@ -251,31 +250,31 @@ CREATE EVENT combinar
 			SET num = (FLOOR(RAND() * 10) + 1);
 			SET i = 0;
         
-		WHILE i < num DO
-			SET r_an = FLOOR(RAND() * 2) + 1;
-			SET r_dir = FLOOR(RAND() * 2) + 1;
+		    WHILE i < num DO
+			    SET r_an = FLOOR(RAND() * 2) + 1;
+			    SET r_dir = FLOOR(RAND() * 2) + 1;
             
-			#FLOOR(RAND() * (<max> - <min> + 1)) + <min>
-            #Random para la cantidad
-			SET cant = FLOOR(RAND() * 10) + 1;
+			    #FLOOR(RAND() * (<max> - <min> + 1)) + <min>
+                #Random para la cantidad
+			    SET cant = FLOOR(RAND() * 10) + 1;
         
-			#Set anillo:
-			IF(r_an = 1)THEN
-				SET a = 'E';
-			ELSE 
-				SET a = 'I';
-            END IF;
+			    #Set anillo:
+			    IF(r_an = 1)THEN
+				    SET a = 'E';
+			    ELSE 
+				    SET a = 'I';
+                END IF;
             
-			#Set direccion:
-			IF(r_dir = 1)THEN
-				SET dir = 'MR';
-			ELSE
-				SET dir = 'Inv';
-            END IF;
+			    #Set direccion:
+			    IF(r_dir = 1)THEN
+				    SET dir = 'MR';
+			    ELSE
+				    SET dir = 'Inv';
+                END IF;
             
-			INSERT INTO  `Movimiento` (`direccion`, `anillo`, `cantidad`) VALUES (dir, a, cant);
-			SET i = i + 1;
+			    INSERT INTO  `Movimiento` (`direccion`, `anillo`, `cantidad`) VALUES (dir, a, cant);
+			    SET i = i + 1;
             
-		END WHILE;
+		    END WHILE;
         END |
 DELIMITER ;
