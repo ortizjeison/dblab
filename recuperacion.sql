@@ -238,7 +238,7 @@ DROP EVENT IF EXISTS combinar;
 DELIMITER |
 
 CREATE EVENT combinar
-    ON SCHEDULE EVERY 15 SECOND
+    ON SCHEDULE EVERY 90 SECOND
     STARTS CURRENT_TIMESTAMP
     DO
 		BEGIN
@@ -261,7 +261,7 @@ CREATE EVENT combinar
             
 			#FLOOR(RAND() * (<max> - <min> + 1)) + <min>
             #Random para la cantidad
-			SET cant = FLOOR(RAND() * 100) + 1;
+			SET cant = FLOOR(RAND() * 10) + 1;
         
 			#Set anillo:
 			IF(r_an = 1)THEN
