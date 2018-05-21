@@ -1,6 +1,3 @@
-DROP SCHEMA IF EXISTS recuperacion;
-CREATE DATABASE IF NOT EXISTS recuperacion;
-use recuperacion;
 
 
 CREATE TABLE IF NOT EXISTS caja_fuerte(
