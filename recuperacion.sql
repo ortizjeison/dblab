@@ -233,35 +233,34 @@ DELIMITER ;
 
 
 
+
 DROP EVENT IF EXISTS combinar;
-DELIMITER %
+DELIMITER |
 
 CREATE EVENT combinar
-    ON SCHEDULE EVERY 2.5 MINUTE
+    ON SCHEDULE 
+    #EVERY 2.5 MINUTE
+    EVERY 5 SECOND
     DO
 		BEGIN
-        
-        #num = cantidad de combinaciones a realizar [1-100]
-        DECLARE num INTEGER;
-		SET num = (FLOOR(RAND() * 100) + 1);
-        
-        DECLARE i INTEGER;
-        SET i = 0;
-        
-        DECLARE dir VARCHAR(3);
-        DECLARE a CHAR(1);
-		DECLARE cant INTEGER;
-        
-        
-        WHILE i < num DO
-        
-			# Dos random: dirección y anillo
+			#num = cantidad de combinaciones a realizar [1-100]
+			DECLARE num INTEGER;
+			DECLARE i INTEGER;
+			DECLARE dir VARCHAR(3);
+			DECLARE a CHAR(1);
+			DECLARE cant INTEGER;
 			DECLARE r_an INTEGER;
 			DECLARE r_dir INTEGER;
-			SET n_i = FLOOR(RAND() * 2) + 1;
-			SET dir_i = FLOOR(RAND() * 2) + 1;
             
-            #FLOOR(RAND() * (<max> - <min> + 1)) + <min>
+			DECLARE CONTINUE HANDLER FOR SQLEXCEPTION BEGIN END;
+			SET num = (FLOOR(RAND() * 10) + 1);
+			SET i = 0;
+        
+		WHILE i < num DO
+			SET r_an = FLOOR(RAND() * 2) + 1;
+			SET r_dir = FLOOR(RAND() * 2) + 1;
+            
+			#FLOOR(RAND() * (<max> - <min> + 1)) + <min>
             #Random para la cantidad
 			SET cant = FLOOR(RAND() * 100) + 1;
         
@@ -278,17 +277,10 @@ CREATE EVENT combinar
 			ELSE
 				SET dir = 'Inv';
             END IF;
+            
 			CALL girar(dir,a,cant);
+			SET i = i + 1;
             
-            
-            SET i = i + 1;
 		END WHILE;
-	END %
-    
-#dir : 'MR' , 'Inv'
-#a : 'E' , 'I'
-#cant: 1 - n
-#CALL girar(dir, a, cant)
-    
+        END |
 DELIMITER ;
-    
