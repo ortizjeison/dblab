@@ -232,8 +232,6 @@ END $$
 DELIMITER ;
 
 
-
-
 DROP EVENT IF EXISTS combinar;
 DELIMITER |
 
@@ -241,6 +239,7 @@ CREATE EVENT combinar
     ON SCHEDULE 
     #EVERY 2.5 MINUTE
     EVERY 5 SECOND
+    #AT CURRENT_TIMESTAMP + INTERVAL 5 SECOND
     DO
 		BEGIN
 			#num = cantidad de combinaciones a realizar [1-100]
@@ -278,7 +277,7 @@ CREATE EVENT combinar
 				SET dir = 'Inv';
             END IF;
             
-			CALL girar(dir,a,cant);
+			INSERT INTO Movimiento VALUES(dir,a,cant);
 			SET i = i + 1;
             
 		END WHILE;
